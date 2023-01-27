@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  ToDoManager
 //
-//  Created by Aleksandr Pak on 24/1/23.
+//  Created by Aleksandr Pak
 //
 
 import UIKit

@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  ToDoManager
 //
-//  Created by Aleksandr Pak on 24/1/23.
+//  Created by Aleksandr Pak
 //
 
 import UIKit
@@ -13,10 +13,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+        guard let window = window else { return }
+        
+        let tasks = TasksStorage().loadTasks()
+        
+        let taskListController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TaskListController") as! TaskListController
+        taskListController.setTasks(tasks)
+        
+        let navigationController = UINavigationController(rootViewController: taskListController)
+        self.window?.windowScene = windowScene
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
